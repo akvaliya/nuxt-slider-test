@@ -76,17 +76,13 @@ export default {
           });
         });
 
-        ////tried to download image to show different images
-        // this.imagesArray.forEach(objImage => {
-        //   if (objImage.photo) {
-        //     axios.get(objImage.photo, {
-        //       responseType: 'arraybuffer'
-        //     }).then((res) => {
-        //         console.log(res)
-        //       objImage.photo ='data:image/jpeg;base64,'+ Buffer.from(res.data, 'binary').toString('base64');
-        //     })
-        //   }
-        // });
+        ////changed size to load different images in slider
+        this.imagesArray.forEach((objImage,index) => {
+          if (objImage.photo) {
+            objImage.photo=objImage.photo.replace("1280","128"+this.pindex);
+            objImage.photo=objImage.photo.replace("720","72"+index);           
+          }
+        });
       }
     }
 

@@ -2,12 +2,12 @@
   <div class="p-container">
     <v-card v-if="pdata" class="p-card">
       <v-card-title
-        class="card-title py-3"
+        class="card-title pa-0 pb-1"
         v-if="pdata.address"
       >{{pdata.address.property_name}}, {{pdata.address.road_name}}</v-card-title>
-      <v-card-text class="pb-3">
-        <div class="availability">Available From {{pdata.start_date | moment}}</div>
-        <v-layout row justify-space-between align-center class="ma-0 my-3">
+      <v-card-text class="pa-0">
+        <div class="availability mb-1">Available From {{pdata.start_date | moment}}</div>
+        <v-layout row justify-space-between align-center class="ma-0 mb-1 room-container">
           <div>
             <v-icon color="error">mdi-bed-double-outline</v-icon>
             {{pdata.room_details.length}} {{pdata.room_details.length>1?"Bedrooms" :"Bedroom"}}
@@ -20,11 +20,11 @@
             <v-icon color="error">mdi-sofa</v-icon>Living Space
           </div>
         </v-layout>
-        <div>
+        <div class="amount mb-1">
           <strong>£{{procePerMonth}} PCM</strong> Excluding Bills
         </div>
       </v-card-text>
-      <v-card-actions class="pt-0 pb-3">
+      <v-card-actions class="pa-0">
         <v-spacer />
         <v-btn block color="error" nuxt :href="bookNowUrl" target="__blank">Book Now</v-btn>
       </v-card-actions>
@@ -69,6 +69,8 @@ export default {
         this.imagesArray = this.pdata.media.photos;
         setTimeout(() => {
           const mySwiper = new Swiper('.scpindex-' + this.pindex, {////generate dynamic class to avoid conflicts
+            slidesPerView: 2,
+            spaceBetween: 25,
             pagination: {
               el: '.sppindex-' + this.pindex,
               clickable: true
@@ -77,10 +79,10 @@ export default {
         });
 
         ////changed size to load different images in slider
-        this.imagesArray.forEach((objImage,index) => {
+        this.imagesArray.forEach((objImage, index) => {
           if (objImage.photo) {
-            objImage.photo=objImage.photo.replace("1280","128"+this.pindex);
-            objImage.photo=objImage.photo.replace("720","72"+index);           
+            objImage.photo = objImage.photo.replace("1280", "128" + this.pindex);
+            objImage.photo = objImage.photo.replace("720", "72" + index);
           }
         });
       }
@@ -90,10 +92,15 @@ export default {
 }
 </script>
 <style lang="scss">
+body, .v-application {
+  font-family: 'Open Sans';
+}
 .swiper-pagination {
   background: white;
+  text-align: left;
+
   .swiper-pagination-bullet {
-    background: #ccc;
+    background: #f0f0f0;
     opacity: 1;
   }
   .swiper-pagination-bullet-active {
@@ -104,28 +111,52 @@ export default {
 .swiper-container-horizontal {
   > .swiper-pagination-bullets {
     bottom: 0px;
+    .swiper-pagination-bullet {
+      margin-right: 30px;
+      margin-left: 0px;
+    }
   }
 }
 </style>
 <style lang="scss" scoped>
 .v-card {
-  width: 400px;
+  padding: 20px;
   max-width: 100%;
+
+  .card-title {
+    font-weight: normal;
+    font-size: 18px;
+    color: #000000;
+  }
+  .availability {
+    font-size: 14px;
+    color: #585453;
+  }
+
+  .room-container {
+    font-size: 12px;
+
+    div {
+      margin-right: 15px;
+    }
+  }
+  .v-icon {
+    margin-right: 2px;
+  }
+
+  .amount {
+    font-size: 14px;
+  }
+
+  .v-btn {
+    font-size: 14px;
+    height: 46px;
+  }
 }
-.card-title {
-  font-weight: normal;
-  font-size: 20px;
-}
-.availability {
-  font-size: 18px;
-}
-.v-icon {
-  margin-right: 3px;
-}
+
 .swiper-container {
-  width: 1250px;
-  max-width: 90%;
-  height: 330px;
+  width: 938px;
+  height: 250px;
   .swiper-slide {
     text-align: center;
     img {
@@ -140,9 +171,10 @@ export default {
   .p-card {
     position: absolute;
     z-index: 100;
-    left: 50%;
-    top: calc(50% - 11px);
-    transform: translate(-50%, -50%);
+    left: 39.13%;
+    right: 19.83%;
+    top: 4.1%;
+    bottom: 13.82%;
   }
 }
 </style>

@@ -4,9 +4,6 @@
       <div v-for="(prty,index) in properties" :key="prty.property_id">
         <CProperty :pdata="prty" :pindex="index"></CProperty>
       </div>
-      <!-- <div v-if="properties.length">
-        <CProperty :pdata="properties[0]"></CProperty>
-      </div> -->
     </v-flex>
   </v-layout>
 </template>
@@ -31,9 +28,7 @@ export default {
         if (res.data && res.data.properties) {
           this.properties = res.data.properties;
         }
-      })
-
-      
+      })      
     }
   }
 }
